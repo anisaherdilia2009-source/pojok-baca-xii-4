@@ -1108,3 +1108,20 @@ footer p:first-child {
     font-size: 0.85rem;
   }
 }
+
+html,
+body {
+  width: 100%;
+  max-width: 100%;
+  margin: 0;
+  overflow-x: hidden;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+}
+
+* {
+  box-sizing: border-box;
+}
