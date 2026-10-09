@@ -1,0 +1,1110 @@
+/* RESET */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: Arial, sans-serif;
+  background-color: #fffdf8;
+  color: #4b4655;
+  line-height: 1.6;
+}
+
+a {
+  text-decoration: none;
+}
+
+/* WARNA */
+:root {
+  --purple: #9b8cc4;
+  --purple-dark: #7665a5;
+
+  --pink: #f3b6c2;
+  --blue: #a9d6e5;
+  --yellow: #f6dfa1;
+  --green: #b8d8be;
+
+  --cream: #fffdf8;
+  --white: #ffffff;
+
+  --text-dark: #4b4655;
+  --text-light: #77727f;
+}
+
+/* NAVBAR */
+header {
+  background-color: var(--white);
+  border-bottom: 1px solid #eee9f2;
+}
+
+/* NAVBAR */
+
+.navbar {
+  max-width: 1200px;
+  margin: auto;
+  padding: 18px 30px;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.navbar-logo {
+  font-size: 20px;
+  font-weight: 600;
+  color: var(--text-dark);
+}
+
+.navbar-logo span {
+  color: var(--purple-dark);
+}
+
+.navbar-nav {
+  display: flex;
+  gap: 30px;
+}
+
+.navbar-nav a {
+  color: var(--text-light);
+  font-size: 14px;
+  font-weight: 500;
+  transition: 0.3s;
+}
+
+.navbar-nav a:hover,
+.navbar-nav a.active {
+  color: var(--purple-dark);
+}
+
+.navbar-extra {
+  display: flex;
+  gap: 15px;
+}
+
+.navbar-extra a {
+  color: var(--text-dark);
+  transition: 0.3s;
+}
+
+.navbar-extra a:hover {
+  color: var(--purple-dark);
+}
+
+#menu-kecil {
+  display: none;
+}
+/* HERD */
+.hero {
+  max-width: 1100px;
+  margin: auto;
+
+  min-height: 520px;
+  padding: 70px 30px;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  gap: 50px;
+}
+
+.hero-text {
+  max-width: 600px;
+}
+
+.small-title {
+  color: var(--purple-dark);
+  font-size: 14px;
+  font-weight: bold;
+
+  letter-spacing: 1px;
+
+  margin-bottom: 15px;
+}
+
+.hero h1 {
+  font-size: 48px;
+  line-height: 1.2;
+
+  color: var(--text-dark);
+
+  margin-bottom: 20px;
+}
+
+.hero h1 span {
+  color: var(--purple-dark);
+}
+
+.hero-description {
+  color: var(--text-light);
+  max-width: 500px;
+  margin-bottom: 30px;
+}
+
+/* BUTTON */
+.button {
+  display: inline-block;
+  background-color: var(--purple);
+  color: var(--white);
+  padding: 12px 22px;
+  border-radius: 12px;
+  font-weight: bold;
+  transition: 0.3s;
+}
+
+.button:hover {
+  background-color: var(--purple-dark);
+  transform: translateY(-2px);
+}
+
+/* HERO IMAGE */
+.hero-image {
+  width: 300px;
+  height: 300px;
+
+  background-color: var(--blue);
+
+  border-radius: 50%;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  font-size: 100px;
+  box-shadow: 15px 15px 0 var(--yellow);
+}
+
+/* STATISTIK */
+.statistics {
+  max-width: 1100px;
+  margin: auto;
+  padding: 50px 30px 80px;
+}
+
+.section-title {
+  text-align: center;
+  margin-bottom: 35px;
+}
+
+.section-title p {
+  color: var(--purple-dark);
+  font-size: 13px;
+  font-weight: bold;
+  letter-spacing: 1px;
+}
+
+.section-title h2 {
+  color: var(--text-dark);
+  font-size: 30px;
+  margin-top: 5px;
+}
+
+/* STATISTIC CARDS */
+.stat-container {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+}
+
+.star-card {
+  padding: 30px;
+  border-radius: 20px;
+  text-align: center;
+}
+
+.star-card.purple {
+  background-color: #e4dcf3;
+}
+
+.stat-card.green {
+  background-color: #dceedd;
+}
+
+.stat-card.yellow {
+  background-color: #fff0c7;
+}
+
+.star-icon {
+  font-size: 30px;
+  margin-bottom: 10px;
+}
+
+.star-card h3 {
+  font-size: 32px;
+  color: var(--text-dark);
+  margin-bottom: 5px;
+}
+
+.stat-card p {
+  color: var(--text-light);
+}
+
+/* FOOTER */
+footer {
+  background-color: #f1ecf6;
+  text-align: center;
+  padding: 25px;
+  color: var(--text-light);
+  font-size: 13px;
+}
+
+footer p:first-child {
+  font-weight: bold;
+  color: var(--purple-dark);
+  margin-bottom: 5px;
+}
+
+/* RESPONSIVE */
+@media (max-width: 900px) {
+  .navbar {
+    padding: 18px 20px;
+  }
+
+  .navbar-nav {
+    position: absolute;
+    top: 70px;
+    right: 20px;
+
+    display: none;
+    flex-direction: column;
+    gap: 15px;
+
+    background-color: var(--white);
+    padding: 20px;
+
+    border-radius: 15px;
+
+    box-shadow: 0 10px 25px rgba(118, 101, 165, 0.15);
+
+    min-width: 180px;
+  }
+
+  .navbar-nav.active {
+    display: flex;
+  }
+
+  #menu-kecil {
+    display: block;
+  }
+}
+/* Halaman Koleksi */
+.collection {
+  max-width: 1100px;
+  margin: auto;
+  padding: 70px 30px 80px;
+}
+
+.collection-header {
+  text-align: center;
+  margin-bottom: 40px;
+}
+
+.collection-header p {
+  color: var(--purple-dark);
+  font-size: 13px;
+  font-weight: bold;
+  letter-spacing: 1px;
+  margin-bottom: 8px;
+}
+
+.collection-header h1 {
+  font-size: 38px;
+  color: var(--text-dark);
+  margin-bottom: 10px;
+}
+
+.collection-header span {
+  color: var(--text-light);
+  font-size: 15px;
+}
+
+/* SEARCH */
+
+.search-box {
+  max-width: 600px;
+  margin: 0 auto 40px;
+
+  display: flex;
+  align-items: center;
+  gap: 12px;
+
+  background-color: var(--white);
+  border: 1px solid #eee9f2;
+  border-radius: 14px;
+
+  padding: 13px 18px;
+
+  box-shadow: 0 5px 15px rgba(118, 101, 165, 0.08);
+}
+
+.search-box svg {
+  width: 20px;
+  color: var(--purple-dark);
+}
+
+.search-box input {
+  width: 100%;
+  border: none;
+  outline: none;
+
+  font-family: inherit;
+  font-size: 14px;
+  color: var(--text-dark);
+
+  background: transparent;
+}
+
+.search-box input::placeholder {
+  color: #aaa5b0;
+}
+
+/* DAFTAR BUKU */
+
+.book-container {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 25px;
+}
+
+.book-card {
+  background-color: var(--white);
+  border-radius: 20px;
+  overflow: hidden;
+
+  border: 1px solid #eee9f2;
+
+  transition: 0.3s;
+}
+
+.book-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 25px rgba(118, 101, 165, 0.12);
+}
+
+/* GAMBAR BUKU */
+
+.book-image {
+  height: 240px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  overflow: hidden;
+}
+
+.book-image img {
+  width: auto;
+  height: 220px;
+  max-width: 85%;
+
+  object-fit: contain;
+}
+/* INFO BUKU */
+
+.book-info {
+  padding: 20px;
+}
+/* DETAIL SINGKAT BUKU */
+
+.book-details {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 12px;
+}
+
+.book-details span {
+  background-color: #f1ecf6;
+  color: var(--purple-dark);
+
+  padding: 4px 9px;
+  border-radius: 8px;
+
+  font-size: 11px;
+  font-weight: 600;
+}
+
+.book-info h3 {
+  font-size: 18px;
+  color: var(--text-dark);
+  margin-bottom: 5px;
+}
+
+.book-info p {
+  color: var(--text-light);
+  font-size: 14px;
+  margin-bottom: 15px;
+}
+
+/* STATUS BUKU */
+
+.book-status {
+  display: inline-block;
+
+  padding: 5px 12px;
+  border-radius: 20px;
+
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.book-status.available {
+  background-color: #dceedd;
+  color: #527b58;
+}
+
+.book-status.borrowed {
+  background-color: #fff0c7;
+  color: #92782f;
+}
+
+/* RESPONSIVE KOLEKSI */
+
+@media (max-width: 768px) {
+  .collection {
+    padding: 50px 20px 60px;
+  }
+
+  .collection-header h1 {
+    font-size: 30px;
+  }
+
+  .book-container {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Halaman Tentang */
+.about-library {
+  max-width: 1100px;
+  margin: auto;
+  padding: 70px 30px 80px;
+}
+
+.about-header {
+  text-align: center;
+  margin-bottom: 50px;
+}
+
+.about-header p {
+  color: var(--purple-dark);
+  font-size: 13px;
+  font-weight: bold;
+  letter-spacing: 1px;
+  margin-bottom: 8px;
+}
+
+.about-header h1 {
+  font-size: 38px;
+  color: var(--text-dark);
+  margin-bottom: 10px;
+}
+
+.about-header span {
+  color: var(--text-light);
+  font-size: 15px;
+}
+
+/* ISI TENTANG */
+
+.about-content {
+  display: flex;
+  align-items: center;
+  gap: 60px;
+
+  background-color: var(--white);
+  padding: 40px;
+
+  border-radius: 25px;
+  border: 1px solid #eee9f2;
+}
+
+/* GAMBAR */
+
+.about-image {
+  width: 300px;
+  height: 300px;
+
+  flex-shrink: 0;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  background-color: var(--blue);
+  border-radius: 50%;
+
+  font-size: 90px;
+
+  box-shadow: 15px 15px 0 var(--yellow);
+}
+
+/* TEKS */
+
+.about-text h2 {
+  font-size: 28px;
+  color: var(--text-dark);
+  margin-bottom: 15px;
+}
+
+.about-text p {
+  color: var(--text-light);
+  font-size: 15px;
+  line-height: 1.8;
+  margin-bottom: 15px;
+}
+
+/* RESPONSIVE */
+
+@media (max-width: 768px) {
+  .about-library {
+    padding: 50px 20px 60px;
+  }
+
+  .about-header h1 {
+    font-size: 30px;
+  }
+
+  .about-content {
+    flex-direction: column;
+    text-align: center;
+    padding: 30px 20px;
+    gap: 40px;
+  }
+
+  .about-image {
+    width: 220px;
+    height: 220px;
+    font-size: 70px;
+  }
+
+  .about-text h2 {
+    font-size: 24px;
+  }
+}
+
+/* Buku Sering Dibaca */
+.popular-books {
+  max-width: 1100px;
+  margin: auto;
+  padding: 20px 30px 60px;
+}
+
+.collection-title {
+  margin-bottom: 25px;
+}
+
+.collection-title p {
+  color: var(--purple-dark);
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 1px;
+  margin-bottom: 5px;
+}
+
+.collection-title h2 {
+  color: var(--text-dark);
+  font-size: 28px;
+}
+
+/* SLIDER */
+
+.book-slider {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.book-slide {
+  display: flex;
+  gap: 20px;
+
+  overflow-x: auto;
+  scroll-behavior: smooth;
+
+  flex: 1;
+
+  padding: 10px 5px 20px;
+
+  scrollbar-width: none;
+}
+
+.book-slide::-webkit-scrollbar {
+  display: none;
+}
+
+/* KARTU BUKU */
+
+.popular-book {
+  min-width: 190px;
+
+  background-color: var(--white);
+
+  border: 1px solid #eee9f2;
+  border-radius: 18px;
+
+  overflow: hidden;
+
+  transition: 0.3s;
+}
+
+.popular-book:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 25px rgba(118, 101, 165, 0.12);
+}
+
+/* COVER */
+
+.popular-book img,
+.book-placeholder {
+  width: 100%;
+  height: 220px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.popular-book img {
+  object-fit: contain;
+  padding: 15px;
+}
+
+.book-placeholder {
+  font-size: 60px;
+}
+
+/* INFO */
+
+.popular-book-info {
+  padding: 15px;
+}
+
+.popular-book-info h3 {
+  color: var(--text-dark);
+  font-size: 16px;
+  margin-bottom: 4px;
+}
+
+.popular-book-info p {
+  color: var(--text-light);
+  font-size: 13px;
+}
+
+/* TOMBOL SLIDER */
+
+.slider-button {
+  width: 42px;
+  height: 42px;
+
+  flex-shrink: 0;
+
+  border: none;
+  border-radius: 50%;
+
+  background-color: var(--purple);
+  color: var(--white);
+
+  font-size: 20px;
+
+  cursor: pointer;
+
+  transition: 0.3s;
+}
+
+.slider-button:hover {
+  background-color: var(--purple-dark);
+  transform: scale(1.05);
+}
+
+/* SEMUA BUKU */
+
+.all-books {
+  max-width: 1100px;
+  margin: auto;
+  padding: 20px 30px 80px;
+}
+
+/* RESPONSIVE */
+
+@media (max-width: 768px) {
+  .popular-books,
+  .all-books {
+    padding-left: 20px;
+    padding-right: 20px;
+  }
+
+  .popular-book {
+    min-width: 160px;
+  }
+
+  .popular-book img,
+  .book-placeholder {
+    height: 190px;
+  }
+
+  .slider-button {
+    display: none;
+  }
+}
+
+/* Detail Buku */
+.book-detail {
+  max-width: 1100px;
+  margin: auto;
+  padding: 50px 30px 80px;
+}
+
+.back-button {
+  display: inline-block;
+  color: var(--purple-dark);
+  font-size: 14px;
+  font-weight: 500;
+  margin-bottom: 35px;
+  transition: 0.3s;
+}
+
+.back-button:hover {
+  transform: translateX(-5px);
+}
+
+/* KONTEN DETAIL */
+
+.book-detail-content {
+  display: grid;
+  grid-template-columns: 350px 1fr;
+  gap: 60px;
+
+  background-color: var(--white);
+
+  padding: 40px;
+
+  border-radius: 25px;
+
+  border: 1px solid #eee9f2;
+
+  box-shadow: 0 10px 30px rgba(118, 101, 165, 0.08);
+}
+
+/* COVER */
+
+.book-detail-cover {
+  height: 450px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 18px;
+
+  overflow: hidden;
+}
+
+.book-detail-cover img {
+  width: auto;
+  height: 410px;
+  max-width: 90%;
+
+  object-fit: contain;
+}
+
+/* INFORMASI */
+
+.book-detail-info {
+  padding-top: 10px;
+}
+
+.book-detail-label {
+  color: var(--purple-dark);
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 1px;
+
+  margin-bottom: 10px;
+}
+
+.book-detail-info h1 {
+  color: var(--text-dark);
+  font-size: 38px;
+  line-height: 1.2;
+
+  margin-bottom: 8px;
+}
+
+.book-detail-author {
+  color: var(--text-light);
+  font-size: 16px;
+
+  margin-bottom: 30px;
+}
+
+/* DATA BUKU */
+
+.book-detail-data {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 15px;
+
+  margin-bottom: 25px;
+}
+
+.book-detail-data div {
+  background-color: #f7f3fa;
+
+  padding: 12px 16px;
+
+  border-radius: 12px;
+
+  min-width: 110px;
+}
+
+.book-detail-data span {
+  display: block;
+
+  color: var(--text-light);
+  font-size: 11px;
+
+  margin-bottom: 3px;
+}
+
+.book-detail-data strong {
+  color: var(--text-dark);
+  font-size: 14px;
+}
+
+/* STATUS */
+
+.detail-status {
+  margin-bottom: 30px;
+}
+
+/* SINOPSIS */
+
+.book-synopsis {
+  border-top: 1px solid #eee9f2;
+
+  padding-top: 25px;
+}
+
+.book-synopsis h2 {
+  color: var(--text-dark);
+  font-size: 20px;
+
+  margin-bottom: 10px;
+}
+
+.book-synopsis p {
+  color: var(--text-light);
+  font-size: 14px;
+  line-height: 1.8;
+}
+
+/* RESPONSIVE */
+
+@media (max-width: 900px) {
+  .book-detail {
+    padding: 40px 20px 60px;
+  }
+
+  .book-detail-content {
+    grid-template-columns: 1fr;
+    gap: 35px;
+
+    padding: 25px;
+  }
+
+  .book-detail-cover {
+    height: 400px;
+  }
+
+  .book-detail-cover img {
+    height: 360px;
+  }
+
+  .book-detail-info h1 {
+    font-size: 30px;
+  }
+}
+
+.hero-image img {
+  width: 100%;
+  max-width: 450px;
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
+  border-radius: 24px;
+  box-shadow: 0 8px 24px rgba(75, 70, 85, 0.12);
+}
+
+/* GALERI POJOK BACA */
+
+.memory-gallery {
+  max-width: 1200px;
+  margin: 30px auto 80px;
+  padding: 50px 6%;
+  background: #fffdf8;
+  border-radius: 28px;
+}
+
+.gallery-heading {
+  text-align: center;
+  margin-bottom: 35px;
+}
+
+.gallery-heading > p {
+  color: #9b8cc4;
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 3px;
+}
+
+.gallery-heading h2 {
+  color: #4b4655;
+  font-size: clamp(1.7rem, 4vw, 2.5rem);
+  margin: 10px 0;
+}
+
+.gallery-heading > span {
+  color: #77717f;
+  font-size: 0.95rem;
+}
+
+.gallery-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 25px;
+}
+
+.gallery-item {
+  margin: 0;
+  padding: 12px;
+  background: #ffffff;
+  border: 1px solid #eee8f3;
+  border-radius: 16px;
+  box-shadow: 0 6px 20px rgba(75, 70, 85, 0.07);
+  transform: rotate(-1deg);
+  transition:
+    transform 0.25s ease,
+    box-shadow 0.25s ease;
+}
+
+.gallery-item:nth-child(even) {
+  background: #fff8fa;
+  transform: rotate(1deg);
+}
+
+.gallery-item:hover {
+  transform: translateY(-5px) rotate(0deg);
+  box-shadow: 0 12px 25px rgba(75, 70, 85, 0.13);
+}
+
+.gallery-item img {
+  display: block;
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
+  border-radius: 10px;
+  cursor: zoom-in;
+  background: #f3edf8;
+}
+
+.gallery-item figcaption {
+  padding: 14px 5px 7px;
+  color: #4b4655;
+  font-size: 0.88rem;
+  font-weight: 600;
+}
+
+.gallery-item figcaption span {
+  display: inline-block;
+  margin-right: 6px;
+  color: #9b8cc4;
+  font-size: 0.75rem;
+}
+
+.gallery-note {
+  margin-top: 35px;
+  color: #7665a5;
+  font-size: 0.9rem;
+  text-align: center;
+}
+
+/* Popup foto */
+.photo-modal[hidden] {
+  display: none;
+}
+
+.photo-modal {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 15px;
+  padding: 25px;
+  background: rgba(40, 35, 48, 0.88);
+}
+
+.photo-modal img {
+  display: block;
+  max-width: min(900px, 95%);
+  max-height: 78vh;
+  object-fit: contain;
+  border-radius: 12px;
+}
+
+.photo-modal p {
+  color: white;
+  text-align: center;
+}
+
+.modal-close {
+  position: absolute;
+  top: 18px;
+  right: 25px;
+  border: none;
+  background: transparent;
+  color: white;
+  font-size: 2.5rem;
+  cursor: pointer;
+}
+
+/* Tampilan tablet */
+@media (max-width: 850px) {
+  .gallery-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 18px;
+  }
+
+  .memory-gallery {
+    padding: 35px 5%;
+  }
+}
+
+/* Tampilan HP */
+@media (max-width: 480px) {
+  .gallery-grid {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+
+  .memory-gallery {
+    margin: 20px 12px 45px;
+    padding: 28px 16px;
+  }
+
+  .gallery-item {
+    transform: none;
+  }
+
+  .gallery-item:nth-child(even) {
+    transform: none;
+  }
+
+  .gallery-item figcaption {
+    font-size: 0.85rem;
+  }
+}
