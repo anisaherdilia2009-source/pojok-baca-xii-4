@@ -128,7 +128,7 @@ async function loadBooks() {
         status: getValue(row, "status") || "Tersedia",
 
         // Nama foto mengikuti ID buku
-        cover: id ? `img/${id}.jpg` : "",
+        cover: getValue(row, "Cover"),
       };
 
       if (book.id && book.title) {
