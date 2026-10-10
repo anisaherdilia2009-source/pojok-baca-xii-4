@@ -403,3 +403,24 @@ if (allBooksContainer || statisticsSection) {
     }
   });
 }
+
+/* TOMBOL SALIN KODE WARNA DDC */
+document.querySelectorAll(".ddc-copy").forEach(function (button) {
+  button.addEventListener("click", async function () {
+    const color = button.dataset.color;
+    const feedback = document.querySelector("#ddcFeedback");
+
+    try {
+      await navigator.clipboard.writeText(color);
+
+      if (feedback) {
+        feedback.textContent = "Kode " + color + " berhasil disalin!";
+      }
+    } catch (error) {
+      if (feedback) {
+        feedback.textContent =
+          "Salin kode warna ini secara manual: " + color;
+      }
+    }
+  });
+});
