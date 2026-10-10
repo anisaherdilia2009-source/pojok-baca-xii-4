@@ -71,14 +71,10 @@ function getBooksCache() {
 
 async function loadBooks() {
   try {
-    const cachedBooks = getBooksCache();
-
-    if (cachedBooks && Object.keys(cachedBooks).length > 0) {
-      books = cachedBooks;
-      return books;
-    }
-
-    const response = await fetch(CSV_URL);
+const response = await fetch(
+  CSV_URL + "&t=" + Date.now(),
+  { cache: "no-store" }
+);
 
     if (!response.ok) {
       throw new Error("Gagal mengambil data dari Google Sheets.");
