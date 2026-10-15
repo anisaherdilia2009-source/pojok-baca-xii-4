@@ -69,14 +69,132 @@ function getBooksCache() {
   }
 }
 
+/* MEMBACA DATA PEMINJAMAN */
+
+async function loadBorrowings() {
+  try {
+    const response = await fetch(BORROWING_CSV_URL + "&t=" + Date.now());
+
+    if (!response.ok) {
+      throw new Error("Gagal mengambil data peminjaman.");
+    }
+
+    const csvText = await response.text();
+    const rows = parseCSV(csvText);
+
+    if (rows.length < 2) {
+      return [];
+    }
+
+    const headers = rows[0].map(function (header) {
+      return header
+        .trim()
+        .replace(/^\uFEFF/, "")
+        .toLowerCase();
+    });
+
+    function getValue(row, name) {
+      const index = headers.indexOf(name.toLowerCase());
+
+      return index === -1 ? "" : (row[index] || "").trim();
+    }
+
+    return rows.slice(1).map(function (row) {
+      return {
+        name: getValue(row, "Nama Lengkap"),
+        title: getValue(row, "Judul Buku"),
+        status: getValue(row, "Status Pengajuan"),
+        borrowedDate: getValue(row, "Tanggal Dipinjam"),
+        dueDate: getValue(row, "Batas Pengembalian"),
+        returnedDate: getValue(row, "Tanggal Dikembalikan"),
+      };
+    });
+  } catch (error) {
+    console.error("Gagal memuat data peminjaman:", error);
+    return [];
+  }
+}
+
+/* MENGHUBUNGKAN DATA PEMINJAMAN DENGAN DATA BUKU */
+
+async function applyBorrowingData() {
+  const borrowings = await loadBorrowings();
+
+  Object.values(books).forEach(function (book) {
+    book.status = "Tersedia";
+    book.borrowedDate = "";
+    book.dueDate = "";
+    book.availableDate = "";
+  });
+
+  borrowings.forEach(function (loan) {
+    const loanTitle = loan.title.trim().toLowerCase();
+
+    const book = Object.values(books).find(function (item) {
+      return item.title.trim().toLowerCase() === loanTitle;
+    });
+
+    if (!book) return;
+
+    const approved =
+      loan.status.trim().toLowerCase() === "disetujui";
+
+    const returned = loan.returnedDate.trim() !== "";
+
+    if (approved && !returned) {
+      book.status = "Dipinjam";
+      book.borrowedDate = loan.borrowedDate;
+      book.dueDate = loan.dueDate;
+
+      if (loan.dueDate) {
+        book.availableDate = addOneDay(loan.dueDate);
+      }
+    }
+  });
+}
+
+/* MENGHITUNG TANGGAL BUKU TERSEDIA KEMBALI */
+
+function addOneDay(dateText) {
+  const parts = dateText.split("/");
+
+  if (parts.length !== 3) {
+    return "";
+  }
+
+  const day = parseInt(parts[0], 10);
+  const month = parseInt(parts[1], 10) - 1;
+  const year = parseInt(parts[2], 10);
+
+  const date = new Date(year, month, day);
+
+  date.setDate(date.getDate() + 1);
+
+  const newDay = String(date.getDate()).padStart(2, "0");
+  const newMonth = String(date.getMonth() + 1).padStart(2, "0");
+  const newYear = date.getFullYear();
+
+  return newDay + "/" + newMonth + "/" + newYear;
+}
+
 /* MEMBACA DATA BUKU DARI GOOGLE SHEETS */
 
 async function loadBooks() {
   try {
-const response = await fetch(
-  CSV_URL + "&t=" + Date.now(),
-  { cache: "no-store" }
-);
+    const cachedBooks = getBooksCache();
+
+    if (cachedBooks && Object.keys(cachedBooks).length > 0) {
+      books = cachedBooks;
+
+      await applyBorrowingData();
+
+      return books;
+    }
+
+    const response = await fetch(
+      CSV_URL + "&t=" + Date.now(),
+      { cache: "no-store" }
+    );
 
     if (!response.ok) {
       throw new Error("Gagal mengambil data dari Google Sheets.");
@@ -120,7 +238,9 @@ const response = await fetch(
         callNumber: getValue(row, "Nomor Panggil"),
 
         // Mendukung kedua ejaan kolom sinopsis
-        synopsis: getValue(row, "Sinopsis") || getValue(row, "Sipnosis"),
+        synopsis:
+          getValue(row, "Sinopsis") ||
+          getValue(row, "Sipnosis"),
 
         popular: getValue(row, "Populer"),
         status: getValue(row, "status") || "Tersedia",
@@ -135,8 +255,14 @@ const response = await fetch(
     });
 
     console.log("Data buku berhasil dimuat:", books);
+
     saveBooksCache();
+
+    // Mengambil status terbaru dari Sheets Peminjaman
+    await applyBorrowingData();
+
     return books;
+
   } catch (error) {
     console.error("Gagal memuat data buku:", error);
     return {};
@@ -236,8 +362,6 @@ function escapeHTML(value) {
   });
 }
 
-/* MEMBUAT KARTU SEMUA BUKU */
-
 function createBookCard(book) {
   const id = escapeHTML(book.id);
   const title = escapeHTML(book.title);
@@ -295,6 +419,7 @@ function createBookCard(book) {
     </div>
   `;
 }
+
 /* MEMBUAT KARTU BUKU FAVORIT */
 
 function createPopularCard(book) {
