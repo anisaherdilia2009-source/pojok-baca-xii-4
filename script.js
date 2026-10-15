@@ -244,6 +244,24 @@ function createBookCard(book) {
   const callNumber = escapeHTML(book.callNumber || "-");
   const cover = escapeHTML(book.cover || "");
 
+  const status = (book.status || "Tersedia").trim().toLowerCase();
+
+  let statusHTML = "";
+
+  if (status === "dipinjam") {
+    statusHTML = `
+      <div class="book-status dipinjam">
+        Sedang Dipinjam
+      </div>
+    `;
+  } else {
+    statusHTML = `
+      <div class="book-status tersedia">
+        Tersedia
+      </div>
+    `;
+  }
+
   return `
     <div class="book-card"
          data-book-id="${id}"
@@ -257,7 +275,7 @@ function createBookCard(book) {
             ? `<img src="${cover}"
                    alt="Sampul ${title}"
                    onerror="this.style.display='none'">`
-            : `<div class="book-placeholder">📚</div>`
+            : `<div class="book-placeholder"></div>`
         }
       </div>
 
@@ -269,6 +287,8 @@ function createBookCard(book) {
           <span>${year}</span>
           <span>${callNumber}</span>
         </div>
+
+        ${statusHTML}
       </div>
     </div>
   `;
