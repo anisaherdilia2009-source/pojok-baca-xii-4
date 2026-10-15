@@ -82,6 +82,7 @@ async function loadBorrowings() {
 
     const csvText = await response.text();
     const rows = parseCSV(csvText);
+    
     console.log("DATA PEMINJAMAN DARI CSV:", rows);
 
     if (rows.length < 2) {
