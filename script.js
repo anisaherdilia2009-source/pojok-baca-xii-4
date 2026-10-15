@@ -185,6 +185,7 @@ function addOneDay(dateText) {
     const year = parseInt(parts[2], 10);
 
     const date = new Date(year, month, day);
+
     date.setDate(date.getDate() + 1);
 
     const newDay = String(date.getDate()).padStart(2, "0");
@@ -196,22 +197,6 @@ function addOneDay(dateText) {
 
   return "";
 }
-
-  const day = parseInt(parts[0], 10);
-  const month = parseInt(parts[1], 10) - 1;
-  const year = parseInt(parts[2], 10);
-
-  const date = new Date(year, month, day);
-
-  date.setDate(date.getDate() + 1);
-
-  const newDay = String(date.getDate()).padStart(2, "0");
-  const newMonth = String(date.getMonth() + 1).padStart(2, "0");
-  const newYear = date.getFullYear();
-
-  return newDay + "/" + newMonth + "/" + newYear;
-}
-
 /* MEMBACA DATA BUKU DARI GOOGLE SHEETS */
 
 async function loadBooks() {
