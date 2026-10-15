@@ -396,10 +396,15 @@ function escapeHTML(value) {
     }[char];
   });
 }
-function createPopularCard(book) {
+
+
+/* MEMBUAT KARTU SEMUA BUKU */
+function createBookCard(book) {
   const id = escapeHTML(book.id);
   const title = escapeHTML(book.title);
   const author = escapeHTML(book.author || "Penulis belum diisi");
+  const year = escapeHTML(book.year || "-");
+  const callNumber = escapeHTML(book.callNumber || "-");
   const cover = escapeHTML(book.cover || "");
 
   const status = (book.status || "Tersedia").trim().toLowerCase();
@@ -431,36 +436,45 @@ function createPopularCard(book) {
   }
 
   return `
-    <div class="popular-book"
+    <div class="book-card"
          data-book-id="${id}"
          tabindex="0"
          role="button"
          aria-label="Lihat detail ${title}">
 
-      ${
-        cover
-          ? `<img src="${cover}"
-                  alt="Sampul ${title}"
-                  onerror="this.style.display='none'">`
-          : `<div class="book-placeholder"></div>`
-      }
+      <div class="book-image">
+        ${
+          cover
+            ? `<img src="${cover}"
+                   alt="Sampul ${title}"
+                   onerror="this.style.display='none'">`
+            : `<div class="book-placeholder"></div>`
+        }
+      </div>
 
-      <div class="popular-book-info">
+      <div class="book-info">
         <h3>${title}</h3>
         <p>${author}</p>
 
+        <div class="book-details">
+          <span>${year}</span>
+          <span>${callNumber}</span>
+        </div>
+
         ${statusHTML}
       </div>
-
     </div>
   `;
 }
+
+
 /* MEMBUAT KARTU BUKU FAVORIT */
-
 function createPopularCard(book) {
   const id = escapeHTML(book.id);
   const title = escapeHTML(book.title);
   const author = escapeHTML(book.author || "Penulis belum diisi");
+  const year = escapeHTML(book.year || "-");
+  const callNumber = escapeHTML(book.callNumber || "-");
   const cover = escapeHTML(book.cover || "");
 
   const status = (book.status || "Tersedia").trim().toLowerCase();
@@ -492,30 +506,37 @@ function createPopularCard(book) {
   }
 
   return `
-    <div class="popular-book"
+    <div class="book-card"
          data-book-id="${id}"
          tabindex="0"
          role="button"
          aria-label="Lihat detail ${title}">
 
-      ${
-        cover
-          ? `<img src="${cover}"
-                  alt="Sampul ${title}"
-                  onerror="this.style.display='none'">`
-          : `<div class="book-placeholder"></div>`
-      }
+      <div class="book-image">
+        ${
+          cover
+            ? `<img src="${cover}"
+                   alt="Sampul ${title}"
+                   onerror="this.style.display='none'">`
+            : `<div class="book-placeholder"></div>`
+        }
+      </div>
 
-      <div class="popular-book-info">
+      <div class="book-info">
         <h3>${title}</h3>
         <p>${author}</p>
 
+        <div class="book-details">
+          <span>${year}</span>
+          <span>${callNumber}</span>
+        </div>
+
         ${statusHTML}
       </div>
-
     </div>
   `;
 }
+
 /* MENAMPILKAN BUKU DI HALAMAN KOLEKSI */
 
 function renderCollectionBooks() {
