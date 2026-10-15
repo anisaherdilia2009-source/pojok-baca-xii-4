@@ -44,6 +44,8 @@ if (menuKecil && navbarNav) {
 
 const CSV_URL =
   "https://docs.google.com/spreadsheets/d/e/2PACX-1vTdsqL2BzL4c2_dyV8jUEQPxdmPXlx9zz0lmxpj-cWfmCXeoXRlWpbAKWbCCwuDR5aStTdaam4iLUa3/pub?gid=0&single=true&output=csv";
+const BORROWING_CSV_URL =
+  "https://docs.google.com/spreadsheets/d/e/2PACX-1vQvNcA5FZWPfUaC4vhKwNrshniDUq5aj0BWk_Is-7wyKLMgsqG-6A-R2d0XV7dRsuwdtSaXwr4zSfp6/pub?output=csv";
 // Tempat menyimpan data buku
 
 let books = {};
