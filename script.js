@@ -154,13 +154,48 @@ async function applyBorrowingData() {
 }
 
 /* MENGHITUNG TANGGAL BUKU TERSEDIA KEMBALI */
-
 function addOneDay(dateText) {
-  const parts = dateText.split("/");
-
-  if (parts.length !== 3) {
+  if (!dateText) {
     return "";
   }
+
+  // Google Sheets menyimpan tanggal sebagai angka serial
+  if (!isNaN(dateText)) {
+    const serial = Number(dateText);
+
+    const date = new Date(
+      Date.UTC(1899, 11, 30) + serial * 24 * 60 * 60 * 1000
+    );
+
+    date.setUTCDate(date.getUTCDate() + 1);
+
+    const day = String(date.getUTCDate()).padStart(2, "0");
+    const month = String(date.getUTCMonth() + 1).padStart(2, "0");
+    const year = date.getUTCFullYear();
+
+    return day + "/" + month + "/" + year;
+  }
+
+  // Kalau formatnya sudah dd/mm/yyyy
+  const parts = dateText.split("/");
+
+  if (parts.length === 3) {
+    const day = parseInt(parts[0], 10);
+    const month = parseInt(parts[1], 10) - 1;
+    const year = parseInt(parts[2], 10);
+
+    const date = new Date(year, month, day);
+    date.setDate(date.getDate() + 1);
+
+    const newDay = String(date.getDate()).padStart(2, "0");
+    const newMonth = String(date.getMonth() + 1).padStart(2, "0");
+    const newYear = date.getFullYear();
+
+    return newDay + "/" + newMonth + "/" + newYear;
+  }
+
+  return "";
+}
 
   const day = parseInt(parts[0], 10);
   const month = parseInt(parts[1], 10) - 1;
