@@ -361,13 +361,10 @@ function escapeHTML(value) {
     }[char];
   });
 }
-
-function createBookCard(book) {
+function createPopularCard(book) {
   const id = escapeHTML(book.id);
   const title = escapeHTML(book.title);
   const author = escapeHTML(book.author || "Penulis belum diisi");
-  const year = escapeHTML(book.year || "-");
-  const callNumber = escapeHTML(book.callNumber || "-");
   const cover = escapeHTML(book.cover || "");
 
   const status = (book.status || "Tersedia").trim().toLowerCase();
@@ -375,10 +372,20 @@ function createBookCard(book) {
   let statusHTML = "";
 
   if (status === "dipinjam") {
+    const availableDate = escapeHTML(book.availableDate || "");
+
     statusHTML = `
       <div class="book-status dipinjam">
         Sedang Dipinjam
       </div>
+
+      ${
+        availableDate
+          ? `<div class="book-available-date">
+               Tersedia kembali: ${availableDate}
+             </div>`
+          : ""
+      }
     `;
   } else {
     statusHTML = `
@@ -387,46 +394,6 @@ function createBookCard(book) {
       </div>
     `;
   }
-
-  return `
-    <div class="book-card"
-         data-book-id="${id}"
-         tabindex="0"
-         role="button"
-         aria-label="Lihat detail ${title}">
-
-      <div class="book-image">
-        ${
-          cover
-            ? `<img src="${cover}"
-                   alt="Sampul ${title}"
-                   onerror="this.style.display='none'">`
-            : `<div class="book-placeholder"></div>`
-        }
-      </div>
-
-      <div class="book-info">
-        <h3>${title}</h3>
-        <p>${author}</p>
-
-        <div class="book-details">
-          <span>${year}</span>
-          <span>${callNumber}</span>
-        </div>
-
-        ${statusHTML}
-      </div>
-    </div>
-  `;
-}
-
-/* MEMBUAT KARTU BUKU FAVORIT */
-
-function createPopularCard(book) {
-  const id = escapeHTML(book.id);
-  const title = escapeHTML(book.title);
-  const author = escapeHTML(book.author || "Penulis belum diisi");
-  const cover = escapeHTML(book.cover || "");
 
   return `
     <div class="popular-book"
@@ -440,18 +407,80 @@ function createPopularCard(book) {
           ? `<img src="${cover}"
                   alt="Sampul ${title}"
                   onerror="this.style.display='none'">`
-          : `<div class="book-placeholder">📚</div>`
+          : `<div class="book-placeholder"></div>`
       }
 
       <div class="popular-book-info">
         <h3>${title}</h3>
         <p>${author}</p>
+
+        ${statusHTML}
       </div>
 
     </div>
   `;
 }
+/* MEMBUAT KARTU BUKU FAVORIT */
 
+function createPopularCard(book) {
+  const id = escapeHTML(book.id);
+  const title = escapeHTML(book.title);
+  const author = escapeHTML(book.author || "Penulis belum diisi");
+  const cover = escapeHTML(book.cover || "");
+
+  const status = (book.status || "Tersedia").trim().toLowerCase();
+
+  let statusHTML = "";
+
+  if (status === "dipinjam") {
+    const availableDate = escapeHTML(book.availableDate || "");
+
+    statusHTML = `
+      <div class="book-status dipinjam">
+        Sedang Dipinjam
+      </div>
+
+      ${
+        availableDate
+          ? `<div class="book-available-date">
+               Tersedia kembali: ${availableDate}
+             </div>`
+          : ""
+      }
+    `;
+  } else {
+    statusHTML = `
+      <div class="book-status tersedia">
+        Tersedia
+      </div>
+    `;
+  }
+
+  return `
+    <div class="popular-book"
+         data-book-id="${id}"
+         tabindex="0"
+         role="button"
+         aria-label="Lihat detail ${title}">
+
+      ${
+        cover
+          ? `<img src="${cover}"
+                  alt="Sampul ${title}"
+                  onerror="this.style.display='none'">`
+          : `<div class="book-placeholder"></div>`
+      }
+
+      <div class="popular-book-info">
+        <h3>${title}</h3>
+        <p>${author}</p>
+
+        ${statusHTML}
+      </div>
+
+    </div>
+  `;
+}
 /* MENAMPILKAN BUKU DI HALAMAN KOLEKSI */
 
 function renderCollectionBooks() {
