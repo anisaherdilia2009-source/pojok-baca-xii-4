@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>Detail Buku - Pojok Baca XII-4</title>
+
+    <!-- Font Poppins -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- Feather Icons -->
+    <script src="https://unpkg.com/feather-icons"></script>
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="style.css" />
+  </head>
+
+  <body>
+    <!-- NAVBAR -->
+
+    <nav class="navbar">
+      <a href="index.html" class="navbar-logo">
+        <span>Pojok Baca</span> XII-4
+      </a>
+
+      <div class="navbar-nav">
+        <a href="index.html">Beranda</a>
+        <a href="koleksi.html" class="active">Koleksi Buku</a>
+        <a href="cara-meminjam.html">Tata Cara Meminjam</a>
+        <a href="tentang.html">Tentang</a>
+      </div>
+
+      <div class="navbar-extra">
+        <a href="#" id="menu-kecil">
+          <i data-feather="menu"></i>
+        </a>
+      </div>
+    </nav>
+
+    <!-- DETAIL BUKU -->
+
+    <main class="book-detail">
+      <a href="koleksi.html" class="back-button"> Kembali ke Koleksi </a>
+
+      <div class="book-detail-content">
+        <!-- COVER -->
+
+        <div class="book-detail-cover">
+          <img id="bookCover" src="" alt="Sampul buku" />
+        </div>
+
+        <!-- INFORMASI -->
+
+        <div class="book-detail-info">
+          <p class="book-detail-label">DETAIL BUKU</p>
+
+          <h1 id="bookTitle">Girls in the Dark</h1>
+
+          <p class="book-detail-author" id="bookAuthor">Akiyoshi Rinako</p>
+
+          <div class="book-detail-data">
+            <div>
+              <span>ISBN</span>
+              <strong id="bookISBN">-</strong>
+            </div>
+
+            <div>
+              <span>Tempat Terbit</span>
+              <strong id="bookPlace">-</strong>
+            </div>
+
+            <div>
+              <span>Penerbit</span>
+              <strong id="bookPublisher">-</strong>
+            </div>
+
+            <div>
+              <span>Tahun Terbit</span>
+              <strong id="bookYear">-</strong>
+            </div>
+
+            <div>
+              <span>Nomor Panggil</span>
+              <strong id="bookCallNumber">-</strong>
+            </div>
+
+            <div>
+              <span>Sumber</span>
+              <strong id="bookSource">-</strong>
+            </div>
+          </div>
+
+          <!-- SINOPSIS -->
+
+          <div class="book-synopsis">
+            <h2>Sinopsis</h2>
+
+            <p id="bookSynopsis">Sinopsis belum tersedia.</p>
+          </div>
+
+          <!-- STATUS PEMINJAMAN -->
+
+          <div class="book-borrow-section" id="bookBorrowSection">
+            <!-- Diisi otomatis oleh JavaScript -->
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <!-- SCRIPT UTAMA -->
+
+    <script src="script.js"></script>
+
+    <script>
+      feather.replace();
+    </script>
+
+    <!-- DETAIL BUKU -->
+
+    <script>
+      async function showBookDetail() {
+        const params = new URLSearchParams(window.location.search);
+        const bookId = params.get("id");
+
+        // Pastikan data Google Sheets sudah selesai dimuat
+        await loadBooks();
+
+        const book = books[bookId];
+
+        if (!book) {
+          document.getElementById("bookTitle").textContent =
+            "Buku tidak ditemukan";
+
+          document.getElementById("bookAuthor").textContent =
+            "Data buku tidak tersedia.";
+
+          return;
+        }
+
+        document.title = book.title + " - Pojok Baca XII-4";
+
+        document.getElementById("bookTitle").textContent = book.title || "-";
+
+        document.getElementById("bookAuthor").textContent =
+          book.author || "Pengarang belum diisi";
+
+        document.getElementById("bookISBN").textContent = book.isbn || "-";
+
+        document.getElementById("bookPlace").textContent = book.place || "-";
+
+        document.getElementById("bookPublisher").textContent =
+          book.publisher || "-";
+
+        document.getElementById("bookYear").textContent = book.year || "-";
+
+        document.getElementById("bookCallNumber").textContent =
+          book.callNumber || "-";
+
+        document.getElementById("bookSource").textContent = book.source || "-";
+
+        document.getElementById("bookSynopsis").textContent =
+          book.synopsis || "Sinopsis belum tersedia.";
+
+        // COVER
+        const cover = document.getElementById("bookCover");
+
+        cover.src = book.cover || "";
+        cover.alt = "Sampul " + book.title;
+
+        cover.onerror = function () {
+          this.style.display = "none";
+        };
+
+        cover.onload = function () {
+          this.style.display = "";
+        };
+
+        // ==========================================
+        // STATUS PEMINJAMAN
+        // ==========================================
+
+        const borrowSection = document.getElementById("bookBorrowSection");
+
+        const status = normalizeText(book.status || "Tersedia");
+
+        if (status === "dipinjam") {
+          const availableDate = book.availableDate || "";
+
+          borrowSection.innerHTML = `
+            <div class="book-detail-status dipinjam">
+              <div class="status-icon">
+                <i data-feather="clock"></i>
+              </div>
+
+              <div class="status-text">
+                <strong>Sedang Dipinjam</strong>
+
+                ${
+                  availableDate
+                    ? `
+                      <span>
+                        Tersedia kembali: ${availableDate}
+                      </span>
+                    `
+                    : ""
+                }
+              </div>
+            </div>
+          `;
+        } else {
+          borrowSection.innerHTML = `
+            <div class="book-detail-status tersedia">
+
+              <div class="status-text">
+                <span>Buku ini dapat diajukan untuk dipinjam.</span>
+              </div>
+            </div>
+
+            <a
+              href="cara-meminjam.html"
+              class="borrow-button detail-borrow-button"
+            >
+              <i data-feather="book-open"></i>
+              Ajukan Peminjaman
+            </a>
+          `;
+        }
+
+        // Aktifkan Feather Icons untuk elemen yang baru dibuat
+        feather.replace();
+
+        console.log("ID Buku:", bookId);
+        console.log("Detail buku:", book);
+      }
+
+      showBookDetail();
+    </script>
+  </body>
+</html>
