@@ -742,13 +742,8 @@ function renderCollectionBooks() {
 
   const searchInput = document.querySelector("#searchBook");
 
-const allBooks = Object.values(books).sort(function (a, b) {
-  return (a.author || "").localeCompare(
-    b.author || "",
-    "id",
-    { sensitivity: "base" }
-  );
-});
+const allBooks = Object.values(books);
+   
   const keyword = searchInput ? normalizeText(searchInput.value) : "";
 
   const filteredBooks = allBooks.filter(function (book) {
