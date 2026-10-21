@@ -107,17 +107,20 @@
             </figcaption>
           </figure>
 
-          <figure class="gallery-item">
-            <img
-              src="img/kegiatan/kegiatan3.jpg"
-              alt="Proses menghias pojok baca"
-              loading="lazy"
-            />
-            <figcaption>
-              <span>03</span>
-              Sedikit Sentuhan Kreativitas
-            </figcaption>
-          </figure>
+        <figure class="gallery-item creativity-gallery">
+  <img
+    src="img/kegiatan/kegiatan3.jpg"
+    alt="Proses menghias pojok baca"
+    loading="lazy"
+  />
+
+  <figcaption>
+    <span>03</span>
+    Sedikit Sentuhan Kreativitas
+
+    <small>Lihat foto lainnya →</small>
+  </figcaption>
+</figure>
 
           <figure class="gallery-item">
             <img
@@ -161,76 +164,221 @@
         </p>
       </section>
 
-      <!-- POPUP FOTO -->
-      <div
-        class="photo-modal"
-        id="photoModal"
-        role="dialog"
-        aria-modal="true"
-        aria-label="Pratinjau foto"
-        hidden
+ <!-- POPUP FOTO -->
+<div
+  class="photo-modal"
+  id="photoModal"
+  role="dialog"
+  aria-modal="true"
+  aria-label="Pratinjau foto"
+  hidden
+>
+  <button
+    class="modal-close"
+    id="closeModal"
+    type="button"
+    aria-label="Tutup foto"
+  >
+    &times;
+  </button>
+
+  <!-- Popup biasa -->
+  <div class="single-photo" id="singlePhoto">
+    <img id="modalImage" src="" alt="Foto diperbesar" />
+    <p id="modalCaption"></p>
+  </div>
+
+  <!-- Mini gallery kreativitas -->
+  <div class="creativity-modal" id="creativityModal">
+    <p class="creativity-label">SEDIKIT SENTUHAN KREATIVITAS</p>
+    <h2>Hiasan Pojok Baca XII-4</h2>
+
+    <div class="creativity-photo">
+      <button
+        class="gallery-arrow gallery-prev"
+        id="galleryPrev"
+        type="button"
+        aria-label="Foto sebelumnya"
       >
-        <button
-          class="modal-close"
-          id="closeModal"
-          type="button"
-          aria-label="Tutup foto"
-        >
-          &times;
-        </button>
-        <img id="modalImage" src="" alt="Foto diperbesar" />
-        <p id="modalCaption"></p>
-      </div>
+        ‹
+      </button>
+
+      <img
+        id="creativityImage"
+        src=""
+        alt="Dekorasi Pojok Baca"
+      />
+
+      <button
+        class="gallery-arrow gallery-next"
+        id="galleryNext"
+        type="button"
+        aria-label="Foto berikutnya"
+      >
+        ›
+      </button>
+    </div>
+
+    <p id="creativityCaption"></p>
+
+    <div class="gallery-counter" id="galleryCounter">
+      1 / 6
+    </div>
+  </div>
+</div>
     </main>
 
     <!-- FOOTER -->
     <footer>
-      <p>© 2026 Pojok Baca XII-4</p>
+      <p>2026 Pojok Baca XII-4</p>
       <p>Dikelola oleh Pustakawan Kelas XII-4</p>
     </footer>
 
     <script src="https://unpkg.com/feather-icons"></script>
     <script src="script.js"></script>
 
-    <script>
-      feather.replace();
+<script>
+  feather.replace();
 
-      // Galeri foto: klik untuk memperbesar
-      const galleryItems = document.querySelectorAll(".gallery-item img");
-      const photoModal = document.getElementById("photoModal");
-      const modalImage = document.getElementById("modalImage");
-      const modalCaption = document.getElementById("modalCaption");
-      const closeModal = document.getElementById("closeModal");
+  const galleryItems = document.querySelectorAll(".gallery-item img");
 
-      galleryItems.forEach((img) => {
-        img.addEventListener("click", () => {
-          if (!img.complete || img.naturalWidth === 0) return;
+  const photoModal = document.getElementById("photoModal");
+  const modalImage = document.getElementById("modalImage");
+  const modalCaption = document.getElementById("modalCaption");
+  const closeModal = document.getElementById("closeModal");
 
-          modalImage.src = img.src;
-          modalImage.alt = img.alt;
-          modalCaption.textContent = img
-            .closest("figure")
-            .querySelector("figcaption")
-            .textContent.trim();
+  const singlePhoto = document.getElementById("singlePhoto");
+  const creativityModal = document.getElementById("creativityModal");
 
-          photoModal.hidden = false;
-        });
-      });
+  const creativityImage = document.getElementById("creativityImage");
+  const creativityCaption = document.getElementById("creativityCaption");
+  const galleryCounter = document.getElementById("galleryCounter");
 
-      function hidePhotoModal() {
-        photoModal.hidden = true;
-        modalImage.src = "";
+  const galleryPrev = document.getElementById("galleryPrev");
+  const galleryNext = document.getElementById("galleryNext");
+
+  // FOTO UNTUK MINI GALLERY
+  const creativityPhotos = [
+    {
+      src: "img/kegiatan/kreativitas1.jpg",
+      caption: "Dekorasi Pojok Baca XII-4",
+    },
+    {
+      src: "img/kegiatan/kreativitas2.jpg",
+      caption: "Hiasan yang dibuat untuk Pojok Baca",
+    },
+    {
+      src: "img/kegiatan/kreativitas3.jpg",
+      caption: "Detail dekorasi Pojok Baca",
+    },
+    {
+      src: "img/kegiatan/kreativitas4.jpg",
+      caption: "Sentuhan kreativitas dari kelas XII-4",
+    },
+    {
+      src: "img/kegiatan/kreativitas5.jpg",
+      caption: "Bagian dekorasi Pojok Baca",
+    },
+    {
+      src: "img/kegiatan/kreativitas6.jpg",
+      caption: "Hasil dekorasi Pojok Baca XII-4",
+    },
+  ];
+
+  let currentPhoto = 0;
+
+  // TAMPILKAN MINI GALLERY
+  function showCreativityPhoto(index) {
+    currentPhoto = (index + creativityPhotos.length) % creativityPhotos.length;
+
+    const photo = creativityPhotos[currentPhoto];
+
+    creativityImage.src = photo.src;
+    creativityImage.alt = photo.caption;
+    creativityCaption.textContent = photo.caption;
+
+    galleryCounter.textContent =
+      `${currentPhoto + 1} / ${creativityPhotos.length}`;
+  }
+
+  // KLIK SETIAP FOTO
+  galleryItems.forEach((img) => {
+    img.addEventListener("click", () => {
+      if (!img.complete || img.naturalWidth === 0) return;
+
+      const figure = img.closest("figure");
+      const isCreativity = figure.classList.contains("creativity-gallery");
+
+      photoModal.hidden = false;
+
+      if (isCreativity) {
+        // Buka mini gallery
+        singlePhoto.style.display = "none";
+        creativityModal.style.display = "block";
+
+        showCreativityPhoto(0);
+      } else {
+        // Buka foto biasa
+        creativityModal.style.display = "none";
+        singlePhoto.style.display = "block";
+
+        modalImage.src = img.src;
+        modalImage.alt = img.alt;
+
+        modalCaption.textContent = figure
+          .querySelector("figcaption")
+          .textContent.trim();
       }
+    });
+  });
 
-      closeModal.addEventListener("click", hidePhotoModal);
+  // FOTO SEBELUMNYA
+  galleryPrev.addEventListener("click", () => {
+    showCreativityPhoto(currentPhoto - 1);
+  });
 
-      photoModal.addEventListener("click", (event) => {
-        if (event.target === photoModal) hidePhotoModal();
-      });
+  // FOTO BERIKUTNYA
+  galleryNext.addEventListener("click", () => {
+    showCreativityPhoto(currentPhoto + 1);
+  });
 
-      document.addEventListener("keydown", (event) => {
-        if (event.key === "Escape") hidePhotoModal();
-      });
-    </script>
+  // TUTUP POPUP
+  function hidePhotoModal() {
+    photoModal.hidden = true;
+    modalImage.src = "";
+    creativityImage.src = "";
+  }
+
+  closeModal.addEventListener("click", hidePhotoModal);
+
+  photoModal.addEventListener("click", (event) => {
+    if (event.target === photoModal) {
+      hidePhotoModal();
+    }
+  });
+
+  // TOMBOL KEYBOARD
+  document.addEventListener("keydown", (event) => {
+    if (photoModal.hidden) return;
+
+    if (event.key === "Escape") {
+      hidePhotoModal();
+    }
+
+    if (
+      event.key === "ArrowLeft" &&
+      creativityModal.style.display !== "none"
+    ) {
+      showCreativityPhoto(currentPhoto - 1);
+    }
+
+    if (
+      event.key === "ArrowRight" &&
+      creativityModal.style.display !== "none"
+    ) {
+      showCreativityPhoto(currentPhoto + 1);
+    }
+  });
+</script>
   </body>
 </html>
